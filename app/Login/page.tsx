@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from 'react'
-const SigninForm = () => {
+const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -47,4 +47,4 @@ const SigninForm = () => {
   );
 };
 
-export default SigninForm;
+export default LoginForm;
