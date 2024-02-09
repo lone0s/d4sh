@@ -1,19 +1,21 @@
+
 "use client";
+import { useState } from 'react';
+import Link from 'next/link';
 
-import {useState} from 'react'
 const LoginForm = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (e: any) => {
+  const handleUsernameChange = (e : any) => {
     setUsername(e.target.value);
   };
 
-  const handlePasswordChange = (e: any) => {
+  const handlePasswordChange = (e : any) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e : any) => {
     e.preventDefault();
   };
 
@@ -42,6 +44,10 @@ const LoginForm = () => {
           />
         </div>
         <button type="submit">Se connecter</button>
+        <p>Vous n'avez pas de compte ?</p> 
+          <Link href="/Signup" passHref>
+            Se créer un compte
+          </Link>
       </form>
     </div>
   );
