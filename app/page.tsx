@@ -1,4 +1,20 @@
 import Image from "next/image";
+import Header from "@/app/header";
+import Sidebar from "@/components/sidebar";
+
+export default function Home() {
+  return (
+      <>
+          <main>
+              {/*<Header/>*/}
+              <Sidebar/>
+      </main>
+          </>
+  )
+}
+
+
+/*
 
 export default function Home() {
   return (
@@ -111,3 +127,4 @@ export default function Home() {
     </main>
   );
 }
+*/
