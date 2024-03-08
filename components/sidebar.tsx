@@ -68,7 +68,7 @@ export default function Sidebar() {
                                 hidden: toggle,
                             })}
                         >
-              Logo
+              :// Not a RaaS
             </span>
                     </div>
                     {isCollapsible && (

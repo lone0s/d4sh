@@ -1,4 +1,4 @@
-// File: /home/wassim/Documents/UPEC/M1/Web/projet/app/layout.tsx
+// File: G:\Workspace\Web\d4sh\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

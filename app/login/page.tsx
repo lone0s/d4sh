@@ -40,6 +40,41 @@ const LoginForm = () => {
   };
 
   return (
+      <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+          <h2 className="text-2xl font-bold mb-4">Connexion</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700">Nom d'utilisateur:</label>
+              <input
+                  type="text"
+                  value={username}
+                  onInput={handleUsernameChange}
+                  placeholder="Entrez votre nom d'utilisateur"
+                  className="form-input mt-1 block w-full"
+                  required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Mot de passe:</label>
+              <input
+                  type="password"
+                  value={password}
+                  onInput={handlePasswordChange}
+                  placeholder="Entrez votre mot de passe"
+                  className="form-input mt-1 block w-full"
+                  required
+              />
+            </div>
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Se connecter</button>
+          </form>
+          <p className="mt-4">Vous n'avez pas de compte ? <Link href="/signup" passHref className="text-blue-500">Se créer un compte</Link></p>
+        </div>
+      </div>
+  );
+};
+/*
+  return (
     <div className="login-form">
       <h2>Connexion</h2>
       <form onSubmit={handleSubmit}>
@@ -71,6 +106,6 @@ const LoginForm = () => {
       </form>
     </div>
   );
-};
+};*/
 
 export default LoginForm;
