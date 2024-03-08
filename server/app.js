@@ -32,7 +32,7 @@ sequelize.authenticate()
 
 module.exports = sequelize;
 
-const mainRouter = require('./routes'); // Importez le fichier routes correctement
+const mainRouter = require('./routes'); 
 app.use('/', mainRouter);
 
 // ecoute du serveur sur le port spécifié
