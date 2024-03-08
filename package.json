@@ -15,17 +15,11 @@
     "cookie": "^0.6.0",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
-<<<<<<< HEAD
-    "next": "^14.1.0",
     "pg": "^8.11.3",
-    "react": "^18",
-    "sequelize": "^6.37.1"
-=======
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1"
->>>>>>> d172eb2ca11ef2b7cc6926f753ee82c539d39ff2
   },
   "devDependencies": {
     "typescript": "^5",

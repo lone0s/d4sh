@@ -68,7 +68,7 @@ export default function Sidebar() {
                                 hidden: toggle,
                             })}
                         >
-              :// Not a RaaS
+              Not a RaaS ://
             </span>
                     </div>
                     {isCollapsible && (
@@ -79,6 +79,8 @@ export default function Sidebar() {
                             {/* Icone (collapse truc muche) */}
                         </button>
                     )}
+                    <BsArrowsCollapse onClick={handleSidebarToggle} />
+
                 </div>
                 <div className="flex flex-col items-start mt-24">
                     {menuItems.map(({ icon: Icon, ...menu }) => {
