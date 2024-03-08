@@ -1,7 +1,8 @@
 "use client"
 import classNames from "classnames"
 import {useState} from "react";
-
+import {BsArrowsCollapse} from "react-icons/bs"
+//Let's make a nextJs sidebar component
 export default function Sidebar() {
     const [toggle, setToggle] = useState(false);
     const toggleHandler = () => setToggle(!toggle);
@@ -31,9 +32,8 @@ export default function Sidebar() {
                     Logo
                     </span>
                 </div>
-                <button className={collapseIcons}>
-                    <CollapseIcon />
-
+                <button className="p-4 rounded bg-light-lighter absolute right-0 w-80">
+                    <BsArrowsCollapse />
                 </button>
             </div>
 
