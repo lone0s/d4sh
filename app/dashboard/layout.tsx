@@ -48,7 +48,7 @@ const DashLayout = ({children,}:{children : React.ReactNode;}) => {
     if(!isAuth){
         return <p>Loading ...</p>;
     }   
-    return <main><header>Navigation</header>{children}</main>
+    return <main><header></header>{children}</main>
 
 
 

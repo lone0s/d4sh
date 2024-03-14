@@ -1,20 +1,12 @@
-
-
-
-
-
-
-
-
-
+import React from 'react';
+import Sidebar from '../components/sidebar'; 
 
 const Dashboard = () => {
-
-    return <div>
-        <h1>Secret Dashboard</h1>
-    </div>
-
-
+    return (
+        <div>
+            <Sidebar />
+        </div>
+    );
 };
 
 export default Dashboard;

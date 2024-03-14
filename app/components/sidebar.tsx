@@ -39,7 +39,7 @@ export default function Sidebar() {
     )
     const test = "test"
 
-    const getNavItemClasses = (menu) => {
+    const getNavItemClasses = () => {
         return classNames(
             "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap",
             {
@@ -84,7 +84,7 @@ export default function Sidebar() {
                 </div>
                 <div className="flex flex-col items-start mt-24">
                     {menuItems.map(({ icon: Icon, ...menu }) => {
-                        const classes = getNavItemClasses(menu);
+                        const classes = getNavItemClasses();
                         return (
                             <div className={classes}>
                                 <Link legacyBehavior={true} href={menu.link}>
