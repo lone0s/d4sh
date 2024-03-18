@@ -22,7 +22,8 @@ export default function Sidebar() {
 
     const handleLogout = () => {
         //todo delete cookie
-        router.push("/login");
+        console.log("ici : ",document.cookie)
+        router.push("../logout");
     };
 
     const getNavItemClasses = () => {

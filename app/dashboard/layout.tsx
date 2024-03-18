@@ -1,7 +1,5 @@
 "use client"
 
-
-
 import axios, { AxiosError } from "axios";
 import  {useRouter } from "next/navigation";
 import {useState, useEffect } from "react";
@@ -37,7 +35,7 @@ const DashLayout = ({children,}:{children : React.ReactNode;}) => {
 
     useEffect(()=>{
         (async()=>{
-            const {user, error} = await getUser();
+            const {error} = await getUser();
             if (error){
                 router.push("/login")
                 return;
