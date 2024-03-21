@@ -1,13 +1,11 @@
 import Image from "next/image";
 import Header from "@/app/header";
-import Sidebar from "@/components/sidebar";
 
 export default function Home() {
   return (
       <>
           <main>
               {/*<Header/>*/}
-              <Sidebar/>
       </main>
           </>
   )
