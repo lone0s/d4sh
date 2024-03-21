@@ -6,7 +6,7 @@ import React, { useState } from "react"
 import { BsArrowsCollapse } from "react-icons/bs"
 
 const menuItems = [
-    { id: 1, label: "Home", icon: BsArrowsCollapse, link: "/" },
+    { id: 1, label: "Home", icon: BsArrowsCollapse, link: "/dashboard" },
     {
         id: 2,
         label: "Manage clients",
