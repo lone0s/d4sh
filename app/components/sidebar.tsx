@@ -25,7 +25,6 @@ export default function Sidebar() {
     }
 
     const handleLogout = () => {
-        //todo delete cookie
         console.log("ici : ", document.cookie)
         router.push("../logout")
     }
