@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.11.0",
     "@types/cookie": "^0.6.0",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/react-dnd": "^3.0.2",
@@ -23,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
     "pg": "^8.11.3",
+    "prisma": "^5.11.0",
     "react": "^18",
     "react-dom": "^18",
     "react-draggable": "^4.4.6",
