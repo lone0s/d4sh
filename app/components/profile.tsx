@@ -19,7 +19,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="text-center p-4"> {/* Added padding */}
+        <div className="text-center p-4">
             <h1 className="text-xl font-bold mb-4">Profile</h1>
             {isEditing ? (
                 <div>
@@ -45,7 +45,7 @@ const Profile = () => {
                 <div>
                     <p className="mb-2">Name: {profileData.name}</p>
                     <p className="mb-2">Email: {profileData.email}</p>
-                    <div className="flex justify-center"> {/* Added flex and justify-center classes */}
+                    <div className="flex justify-center">
                         <button onClick={() => setIsEditing(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Edit
                         </button>
