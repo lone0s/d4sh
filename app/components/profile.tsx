@@ -8,7 +8,7 @@ const Profile = () => {
     const [editableData, setEditableData] = useState({ ...profileData });
     const [isEditing, setIsEditing] = useState(false);
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
         setEditableData({ ...editableData, [name]: value });
     };

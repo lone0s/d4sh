@@ -13,23 +13,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model users {
   user_id   Int       @id @default(autoincrement())
-  username  String
+  username  String	  @unique
   password  String
-  email     String    @unique
-  clients   Client[]
+  email     String    
+  clients   clients[]
 }
 
-model Client {
+model clients {
   client_id   Int       @id @default(autoincrement())
   user_id     Int
-  ip_address  String?   // Represent IP addresses as String
-  userData    Data[]
-  user        User      @relation(fields: [user_id], references: [user_id])
+  ip_address  String?
+  userData    data[]
+  user        users      @relation(fields: [user_id], references: [user_id])
 }
 
-model Data {
+model data {
   data_id    Int       @id @default(autoincrement())
   client_id  Int
   up_time    DateTime?
@@ -37,5 +37,5 @@ model Data {
   device_type String
   browser_info String
   geolocation String
-  client     Client    @relation(fields: [client_id], references: [client_id])
+  client     clients    @relation(fields: [client_id], references: [client_id])
 }
