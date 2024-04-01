@@ -4,6 +4,39 @@ import { serialize } from "cookie";
 import { COOKIE_NAME, MAX_AGE, SECRET } from "@/constants";
 import {PrismaClient} from '@prisma/client';
 
+
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Authenticate user
+ *     description: Check login credentials
+ *     parameters:
+ *       - in: body
+ *         name: user
+ *         description: User credentials
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             username:
+ *               type: string
+ *               description: Username
+ *             password:
+ *               type: string
+ *               description: User password
+ *     responses:
+ *       200:
+ *         description: Authenticated
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: An error occurred while authenticating user.
+
+ */
+
+
 const prisma = new PrismaClient();
 export async function POST(request : Request){
     const body = await request.json();

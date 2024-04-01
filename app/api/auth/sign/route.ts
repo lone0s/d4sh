@@ -4,6 +4,34 @@ import { COOKIE_NAME, MAX_AGE, SECRET } from "@/constants";
 import {PrismaClient} from '@prisma/client';
 
 
+
+
+/**
+ * @swagger
+ * /api/auth/sign:
+ *   post:
+ *     summary: Register a new user
+ *     description: Register a new user with username, password, and email.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User registered successfully
+ *       500:
+ *         description: Internal Server Error
+ */
+
 const prisma = new PrismaClient();
 export async function POST(request : Request) {
     const body = await request.json();
