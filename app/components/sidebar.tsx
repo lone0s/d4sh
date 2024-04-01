@@ -77,7 +77,6 @@ export default function Sidebar() {
 							Profile
 						</button>
 						<StandaloneModal ref={ref} onClose={onClose}>
-							{/*<div>Modal content</div>*/}
 							<Profile/>
 						</StandaloneModal>
 					</div>

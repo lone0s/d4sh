@@ -9,7 +9,6 @@ export async function POST(request : Request){
     const body = await request.json();
     const { username , password} = body;
 
-
     try {
         const user = await prisma.users.findUnique({
             where: {username: username, password: password}
@@ -21,15 +20,6 @@ export async function POST(request : Request){
                 status: 401,
             });
         }
-
-        // C'est pour test en attendant la base de données
-        /*        if (username != 'admin' || password != 'admin') {
-                    return NextResponse.json({
-                        message: "Unauthorized",
-                    }, {
-                        status: 401,
-                    });
-                }*/
 
         const token = sign(
             {
@@ -72,13 +62,4 @@ export async function POST(request : Request){
     finally {
         await prisma.$disconnect();
     }
-
-
-
-
-
-
-
-
-
 }
