@@ -15,20 +15,21 @@ CREATE TABLE users (
 -- Create clients table with composite primary key
 CREATE TABLE clients (
     client_id SERIAL,
-    user_id INT,
+    user_id INT REFERENCES users(user_id),
     ip_address INET,
     PRIMARY KEY (client_id, user_id)
 );
 
 -- Create data table with composite foreign key
 CREATE TABLE data (
-    data_id SERIAL PRIMARY KEY,
+    data_id SERIAL,
     client_id INT,
-    user_id INT,
-    FOREIGN KEY (client_id, user_id) REFERENCES clients(client_id, user_id),
+    FOREIGN KEY (client_id) REFERENCES clients(client_id),
     up_time TIMESTAMP,
     off_time TIMESTAMP,
     device_type VARCHAR(50),
     browser_info TEXT,
-    geolocation VARCHAR(100)
+    geolocation VARCHAR(100),
+    PRIMARY KEY (data_id)
 );
+

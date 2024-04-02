@@ -2,13 +2,13 @@ import {verify, decode} from "jsonwebtoken";
 import {NextApiRequest} from "next";
 import {NextResponse} from "next/server";
 import {COOKIE_NAME} from "@/constants";
+import {cookies} from "next/headers";
 
 export async function GET(req: NextApiRequest) {
 
-    const jwtCookie = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("d4ashJWT="))
-        ?.split("=")[1]
+    const cookieStore = cookies();
+
+    const jwtCookie = cookieStore.get(COOKIE_NAME);
 
     if (!jwtCookie) {
         return NextResponse.json({
@@ -18,7 +18,7 @@ export async function GET(req: NextApiRequest) {
         });
     }
 
-    if (!verify(jwtCookie, process.env.JWT_SECRET as string)) {
+    if (!verify(jwtCookie.value, process.env.JWT_SECRET as string)) {
         return NextResponse.json({
             message: "Not verified, Unauthorized",
         }, {
@@ -28,7 +28,7 @@ export async function GET(req: NextApiRequest) {
 
     return NextResponse.json(
         {
-            message: decode(jwtCookie),
+            message: decode(jwtCookie.value).userId,
         },
         {
             status: 200,
