@@ -38,17 +38,28 @@ const DashboardTime: React.FC<DashboardTimeProps> = ({ clientId }) => {
         if (timeData.length > 0) {
             const upTimes = timeData.map(data => new Date(data.up_time));
             const offTimes = timeData.map(data => new Date(data.off_time));
-
+    
             const upHours = upTimes.map(time => time.getHours());
             const upDays = upTimes.map(time => time.getDate());
-
+    
             const offHours = offTimes.map(time => time.getHours());
-
+            const offDays = offTimes.map(time => time.getDate());
+    
+            const connectionPoints = upDays.map((day, index) => ({
+                x: day,
+                y: upHours[index]
+            }));
+    
+            const disconnectionPoints = offDays.map((day, index) => ({
+                x: day,
+                y: offHours[index]
+            }));
+    
             const ctx = document.getElementById('time-chart') as HTMLCanvasElement;
             if (ctx) {
                 // Destroy existing chart before creating new one
                 Chart.getChart(ctx)?.destroy();
-
+    
                 new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -56,13 +67,13 @@ const DashboardTime: React.FC<DashboardTimeProps> = ({ clientId }) => {
                         datasets: [
                             {
                                 label: 'Hour of Connection',
-                                data: upHours,
+                                data: connectionPoints,
                                 borderColor: 'rgba(255, 99, 132, 1)',
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             },
                             {
                                 label: 'Hour of Disconnection',
-                                data: offHours,
+                                data: disconnectionPoints,
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                             }
@@ -82,13 +93,18 @@ const DashboardTime: React.FC<DashboardTimeProps> = ({ clientId }) => {
                                     text: 'Hour'
                                 }
                             }
+                        },
+                        elements: {
+                            line: {
+                                tension: 0, // Disable bezier curve
+                            }
                         }
                     }
                 });
             }
         }
     }, [timeData]);
-
+    
     return (
         <div>
             <h2>Connection Times for Client {clientId}</h2>
