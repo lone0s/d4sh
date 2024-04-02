@@ -3,7 +3,7 @@
 # Set PostgreSQL connection parameters
 # These are the default values, feel free to change them if you've got a specialized config
 username="postgres"
-password="postgres"
+password="wasssql"
 port="5432"
 database="d4sh"
 
