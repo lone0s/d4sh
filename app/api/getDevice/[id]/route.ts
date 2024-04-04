@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
 
-
-
 /**
  * @swagger
  * /api/getDevice/{id}:
@@ -20,7 +18,6 @@ import { PrismaClient } from '@prisma/client';
  *       500:
  *         description: An error occurred while fetching device data.
  */
-
 
 const prisma = new PrismaClient();
 

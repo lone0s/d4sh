@@ -52,4 +52,7 @@ export async function GET(req: NextRequest, {params}: {params: {victimId: string
             }
         );
     }
+    finally {
+        await prisma.$disconnect();
+    }
 }
