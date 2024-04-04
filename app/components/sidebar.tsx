@@ -27,8 +27,6 @@ export default function Sidebar() {
 	}
 
 	function handleLogout() {
-		//todo delete cookie
-		console.log("ici : ", document.cookie)
 		router.push("../logout")
 
 

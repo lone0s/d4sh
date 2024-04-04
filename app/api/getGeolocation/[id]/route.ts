@@ -34,7 +34,7 @@ export async function GET(request: Request, context:  any) {
     const userId  = +params.id
     try {
         const user = await prisma.users.findUnique({
-            where: { user_id: userId } // Utiliser userId pour rechercher l'utilisateur
+            where: { user_id: userId } 
         });
         if (!user) {
             return NextResponse.json({
@@ -49,11 +49,10 @@ export async function GET(request: Request, context:  any) {
             where : {user_id : userId},
             select : {client_id : true}
         })
-        
         const clientIDs = clientID.map(client => client.client_id);
         const userLocations = await prisma.data.findMany({
             where: { client_id: { in: clientIDs } },
-            select: { geolocation: true }
+            select: {client_id : true, geolocation: true }
         });
         // génère un jeton d'authentification
         const token = sign(

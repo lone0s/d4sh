@@ -5,15 +5,15 @@ import {decode} from "jsonwebtoken";
 
 const Profile = () => {
 
-    function setUserFromCookie() {
+   function setUserFromCookie() {
 
-        const userid: number = fetch('/api/auth/jwt/decode')
+/*        const userid: number = fetch('/api/auth/jwt/decode')
             .then((res) => res.json())
             .then((data) => {
                 return data.message
             });
         return userid;
-/*
+
         const user = prismaclient.users.findUnique({
             where: {
                 user_id: userid
@@ -23,10 +23,10 @@ const Profile = () => {
         // setProfileData({name: user.username, email: user.email})
     }
 
-    const uid = setUserFromCookie();
+  //  const uid = setUserFromCookie();
 
     const [profileData, setProfileData] = useState({
-        name: uid,
+        name: 1,
         email: 'john@example.com',
     });
 

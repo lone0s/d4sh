@@ -29,9 +29,9 @@ export async function GET(request: Request, context: any) {
     const clientId = +params.id;
 
     try {
-        const clientData = await prisma.clients.findUnique({
-            where: { client_id: clientId },
-            select: { ip_address: true }
+        const clientData = await prisma.clients.findMany({
+            where: { user_id: clientId },
+            select: { client_id : true,ip_address: true }
         });
 
         return NextResponse.json({

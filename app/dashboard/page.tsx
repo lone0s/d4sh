@@ -4,7 +4,7 @@ import Sidebar from '../components/sidebar';
 import DashboardBrowser from '../components/g_browser';
 import DashboardMap from '../components/g_geolocalisation';
 import DashboardDevice from '../components/g_devices';
-import DashboardTime from '../components/g_time'; // Ajout du composant DashboardTime
+import DashboardTime from '../components/g_time'; 
 import { WidthProvider, Responsive } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -37,7 +37,7 @@ const Dashboard = () => {
                         <DashboardDevice clientId={1} />
                     </div>
                     <div key="d" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid black' }}>
-                        <DashboardTime clientId={1} /> {/* Ajout du composant DashboardTime avec le prop clientId */}
+                        <DashboardTime clientId={1} /> 
                     </div>
                 </ResponsiveReactGridLayout>
             </div>
