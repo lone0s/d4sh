@@ -2,8 +2,6 @@ import {NextRequest, NextResponse} from "next/server";
 
 import {PrismaClient} from '@prisma/client';
 
-//TODO: RAJOUTER FINALLY PRISMA DISCONNECT POUR LES AUTRES ROUTES
-
 /**
  *
  * @swagger
@@ -23,6 +21,7 @@ import {PrismaClient} from '@prisma/client';
  *     description: An error occurred while deleting victim.
  *
  */
+
 export async function DELETE(request: NextRequest, {params}: {params: {victimId: string}}) {
     const prisma = new PrismaClient();
 
