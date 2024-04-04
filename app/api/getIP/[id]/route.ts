@@ -1,6 +1,27 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
 
+
+
+/**
+ * @swagger
+ * /api/getIP/{id}:
+ *   get:
+ *     summary: Fetch client IP  by ID
+ *     description: Fetch client IP based on client ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: Client ID
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Ok
+ *       500:
+ *         description: An error occurred while fetching client data.
+ */
+
+
 const prisma = new PrismaClient();
 
 export async function GET(request: Request, context: any) {

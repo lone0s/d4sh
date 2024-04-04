@@ -1,6 +1,27 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
 
+
+
+/**
+ * @swagger
+ * /api/getDevice/{id}:
+ *   get:
+ *     summary: Get device data by client ID
+ *     description: Retrieve device data associated with a specific client ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: Client ID
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Ok
+ *       500:
+ *         description: An error occurred while fetching device data.
+ */
+
+
 const prisma = new PrismaClient();
 
 export async function GET(request: Request, context:  any) {
