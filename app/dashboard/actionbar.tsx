@@ -2,6 +2,7 @@
 import { StandaloneModal, useModal } from "@/app/components/standaloneModal"
 import { ReactNode, useState } from "react"
 import { BsInfoCircleFill, BsTerminalFill, BsXCircleFill } from "react-icons/bs"
+import {DELETE} from "@/app/api/delete/[victimId]/route";
 
 export default function ActionBar({ victimId }: { victimId: number }) {
 	const { ref, onOpen, onClose } = useModal()
@@ -68,6 +69,17 @@ export default function ActionBar({ victimId }: { victimId: number }) {
 		})
 	}
 
+	async function handleDeletion() {
+		console.log(victimId)
+		const deletionResponse = await fetch(`/api/delete/${victimId}`, {method: "DELETE"})
+		if (!deletionResponse.ok) {
+			alert("Failed to delete victim")
+			return
+		}
+		const deletionJson = await deletionResponse.json()
+		return alert(deletionJson.message)
+	}
+
 	return (
 		<div className="flex w-full justify-between">
 			<button
@@ -88,10 +100,7 @@ export default function ActionBar({ victimId }: { victimId: number }) {
 				<BsTerminalFill />
 			</button>
 			<button
-				onClick={() => {
-					onOpen()
-					setModalContent("Goodbye world :((")
-				}}
+				onClick={handleDeletion}
 				className="flex items-center justify-center p-2"
 			>
 				<BsXCircleFill />
