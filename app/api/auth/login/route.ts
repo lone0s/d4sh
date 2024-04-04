@@ -22,9 +22,11 @@ import {PrismaClient} from '@prisma/client';
  *           properties:
  *             username:
  *               type: string
+ *               format : string
  *               description: Username
  *             password:
  *               type: string
+ *               format : string
  *               description: User password
  *     responses:
  *       200:
@@ -53,6 +55,7 @@ export async function POST(request : Request){
                 status: 401,
             });
         }
+        
 
         const token = sign(
             {
@@ -71,14 +74,16 @@ export async function POST(request : Request){
             path: "/"
         });
 
-        const response = {
-            message: 'Authenticated !'
-        }
-
-        return new Response(JSON.stringify(response), {
-            status: 200,
-            headers: {'Set-Cookie': seralized},
-        })
+        return NextResponse.json(
+            { message: "Authenticated" },
+            {
+                status: 200,
+                headers: { 'Set-Cookie': seralized },
+            }
+        );
+        
+        
+        
     }
 
     catch (error) {

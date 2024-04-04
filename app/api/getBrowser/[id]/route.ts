@@ -1,6 +1,27 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
 
+
+
+/**
+ * @swagger
+ * /api/getBrowser/{id}:
+ *   get:
+ *     summary: Get browser data by client ID
+ *     description: Retrieve browser data associated with a specific client ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: Client ID
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Ok
+ *       500:
+ *         description: An error occurred while fetching browser data.
+ */
+
+
 const prisma = new PrismaClient();
 
 export async function GET(request: Request, context: any) {

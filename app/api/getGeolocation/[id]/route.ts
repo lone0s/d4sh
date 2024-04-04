@@ -4,6 +4,28 @@ import { COOKIE_NAME, MAX_AGE, SECRET } from "@/constants";
 import { PrismaClient } from '@prisma/client';
 import { sign } from "jsonwebtoken";
 
+
+/**
+ * @swagger
+ * /api/getGeolocation/{id}:
+ *   get:
+ *     summary: Fetch user location data
+ *     description: Retrieve user location data based on user ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: User ID
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Ok
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: An error occurred while authenticating user or fetching user location data.
+ */
+
+
 const prisma = new PrismaClient();
 
 export async function GET(request: Request, context:  any) {
@@ -22,7 +44,7 @@ export async function GET(request: Request, context:  any) {
             });
         }
 
-        // authentification réussie, maintenant récupérez les données de géolocalisation de l'utilisateur
+        // authentification réussie, maintenant on récupère les données de géolocalisation de l'utilisateur
         const clientID = await prisma.clients.findMany({
             where : {user_id : userId},
             select : {client_id : true}
@@ -33,7 +55,7 @@ export async function GET(request: Request, context:  any) {
             where: { client_id: { in: clientIDs } },
             select: { geolocation: true }
         });
-        // Générez un jeton d'authentification
+        // génère un jeton d'authentification
         const token = sign(
             {
                 userId,
@@ -53,7 +75,6 @@ export async function GET(request: Request, context:  any) {
 
         // Réponse réussie avec les données de géolocalisation
         return new Response(JSON.stringify({
-            message: 'Authenticated !',
             userLocations
         }), {
             status: 200,

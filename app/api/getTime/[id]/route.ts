@@ -1,6 +1,26 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
 
+
+/**
+ * @swagger
+ * /api/getTime/{id}:
+ *   get:
+ *     summary: Fetch time data by client ID
+ *     description: Fetch time data (up_time, off_time) based on client ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: Client ID
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *       500:
+ *         description: An error occurred while fetching time data.
+ */
+
+
 const prisma = new PrismaClient();
 
 export async function GET(request: Request, context: any) {
