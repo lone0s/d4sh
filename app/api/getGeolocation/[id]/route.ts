@@ -10,7 +10,6 @@ export async function GET(request: Request, context:  any) {
     console.log(context," ",context.params," ", context.params.id)
     const {params} = context
     const userId  = +params.id
-    console.log("userId : ",userId," params : ",params)
     try {
         const user = await prisma.users.findUnique({
             where: { user_id: userId } // Utiliser userId pour rechercher l'utilisateur
@@ -23,12 +22,17 @@ export async function GET(request: Request, context:  any) {
             });
         }
 
-        // Authentification réussie, maintenant récupérez les données de géolocalisation de l'utilisateur
+        // authentification réussie, maintenant récupérez les données de géolocalisation de l'utilisateur
+        const clientID = await prisma.clients.findMany({
+            where : {user_id : userId},
+            select : {client_id : true}
+        })
+        
+        const clientIDs = clientID.map(client => client.client_id);
         const userLocations = await prisma.data.findMany({
-            where: { client_id: userId },
+            where: { client_id: { in: clientIDs } },
             select: { geolocation: true }
         });
-
         // Générez un jeton d'authentification
         const token = sign(
             {
