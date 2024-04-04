@@ -31,8 +31,6 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
 	}
 
 	function handleLogout() {
-		//todo delete cookie
-		console.log("ici : ", document.cookie)
 		router.push("../logout")
 	}
 

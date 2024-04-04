@@ -10,13 +10,22 @@ export interface DashboardMapProps {
 
 const DashboardMap: React.FC<DashboardMapProps> = ({ userId }) => {
     const [userLocations, setUserLocations] = useState([]);
+    const [userInfo, setUserInfo] = useState<Record<string, string>>({});
+
     const mapRef = useRef<L.Map | null>(null);
 
     useEffect(() => {
         const getUserLocation = async (userId: number) => {
             try {
                 const response = await axios.get(`/api/getGeolocation/${userId}`);
-                setUserLocations(response.data.userLocations);
+                const locations = response.data.userLocations.map((location: any) => location.geolocation);
+                setUserLocations(locations);
+                const userInfoDict = response.data.userLocations.reduce((acc: any, location: any) => {
+                    acc[location.client_id] = location.geolocation;
+                    return acc;
+                }, {});
+                setUserInfo(userInfoDict)
+
             } catch (error) {
                 console.error("Error fetching user location:", error);
             }
@@ -45,7 +54,7 @@ const DashboardMap: React.FC<DashboardMapProps> = ({ userId }) => {
         });
 
         userLocations.forEach(async location => {
-            const { geolocation } = location;
+            const  geolocation  = location;
             const [latitudeString, longitudeString] = geolocation.split(',');
             const latitude = parseFloat(latitudeString);
             const longitude = parseFloat(longitudeString);
@@ -61,11 +70,17 @@ const DashboardMap: React.FC<DashboardMapProps> = ({ userId }) => {
                 // on récupère l'adresse IP à partir de l'API /api/getIP
                 try {
                     const response = await axios.get(`/api/getIP/${userId}`);
-                    const ipAddress = response.data.clientData.ip_address;
-                    
-                    // popup au survol du cercle avec l'adresse IP
-                    circle.bindPopup(ipAddress).openPopup();
-
+                    const ipAddresses = response.data.clientData.map((ipaddress: any) => ipaddress.ip_address);
+                    const userInfoDict = response.data.clientData.reduce((acc: any, ipaddress: any) => {
+                        acc[ipaddress.client_id] = ipaddress.ip_address;
+                        return acc;
+                    }, {});
+                    for (let key in userInfo){
+                        if (userInfo[key] == location) {
+                            // popup au survol du cercle avec l'adresse IP
+                            circle.bindPopup(userInfoDict[key]).openPopup();
+                        }
+                    }
                 } catch (error) {
                     console.error("Error fetching IP address:", error);
                 }
