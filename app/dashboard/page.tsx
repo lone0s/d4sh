@@ -16,7 +16,7 @@ const Dashboard = () => {
         { i: 'a', x: 0, y: 0, w: 6, h: 2, minW: 3, minH: 2, maxH: 2 },
         { i: 'b', x: 0, y: 2, w: 6, h: 2, minW: 3, minH: 2, maxH: 2, maxW: 6 },
         { i: 'c', x: 6, y: 0, w: 6, h: 2, minW: 3, minH: 2, maxH: 2 },
-        { i: 'd', x: 6, y: 2, w: 6, h: 2, minW: 3, minH: 2, maxH: 2, maxW: 6 },
+        { i: 'd', x: 6, y: 2, w: 6, h: 2, minW: 6, minH: 2, maxH: 2, maxW: 6 },
     ];
 
     const cols = { lg: 12, md: 12, sm: 4, xs: 2, xxs: 1 };

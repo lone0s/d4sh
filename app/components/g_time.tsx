@@ -1,11 +1,10 @@
-"use client"
 import React, { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 import 'chartjs-adapter-date-fns';
 
-
 export interface TimeData {
+    client_id: number;
     up_time: string;
     off_time: string;
 }
@@ -21,70 +20,55 @@ const DashboardTime: React.FC<DashboardTimeProps> = ({ clientId }) => {
         const fetchTimeData = async () => {
             try {
                 const response = await axios.get(`/api/getTime/${clientId}`);
-                const newData = response.data.timeData.map((data: any) => ({
-                    up_time: new Date(data.up_time),
-                    off_time: new Date(data.off_time)
-                }));
-                setTimeData(newData);
+                setTimeData(response.data.timeData);
             } catch (error) {
                 console.error("Error fetching time data:", error);
             }
         };
-    
+
         fetchTimeData();
     }, [clientId]);
 
     useEffect(() => {
         if (timeData.length > 0) {
-            const upTimes = timeData.map(data => new Date(data.up_time));
-            const offTimes = timeData.map(data => new Date(data.off_time));
-    
-            const upHours = upTimes.map(time => time.getHours());
-            const upDays = upTimes.map(time => time.getDate());
-    
-            const offHours = offTimes.map(time => time.getHours());
-            const offDays = offTimes.map(time => time.getDate());
-    
-            const connectionPoints = upDays.map((day, index) => ({
-                x: day,
-                y: upHours[index]
-            }));
-    
-            const disconnectionPoints = offDays.map((day, index) => ({
-                x: day,
-                y: offHours[index]
-            }));
-    
             const ctx = document.getElementById('time-chart') as HTMLCanvasElement;
             if (ctx) {
                 // Destroy existing chart before creating new one
                 Chart.getChart(ctx)?.destroy();
-    
+
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: upDays.map((day, index) => `${day}/${upTimes[index].getMonth() + 1}`), // Format: DD/MM
-                        datasets: [
+                        datasets: timeData.flatMap((data, index) => ([
                             {
-                                label: 'Hour of Connection',
-                                data: connectionPoints,
+                                label: `Client ${data.client_id} - Up time`,
+                                data: [{ x: new Date(data.up_time), y: new Date(data.up_time).getHours() }],
                                 borderColor: 'rgba(255, 99, 132, 1)',
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                fill: false,
+                                borderDash: [5, 5], 
                             },
                             {
-                                label: 'Hour of Disconnection',
-                                data: disconnectionPoints,
+                                label: `Client ${data.client_id} - Off time`,
+                                data: [{ x: new Date(data.off_time), y: new Date(data.off_time).getHours() }],
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                fill: false,
                             }
-                        ]
+                        ]))
                     },
                     options: {
                         scales: {
                             x: {
+                                type: 'time',
+                                time: {
+                                    displayFormats: {
+                                        hour: 'dd/MM/yyyy' 
+                                    }
+                                },
                                 title: {
                                     display: true,
-                                    text: 'Day'
+                                    text: 'Time'
                                 }
                             },
                             y: {
@@ -96,7 +80,7 @@ const DashboardTime: React.FC<DashboardTimeProps> = ({ clientId }) => {
                         },
                         elements: {
                             line: {
-                                tension: 0, // Disable bezier curve
+                                tension: 0 
                             }
                         }
                     }
@@ -104,7 +88,7 @@ const DashboardTime: React.FC<DashboardTimeProps> = ({ clientId }) => {
             }
         }
     }, [timeData]);
-    
+
     return (
         <div>
             <h2>Connection Times for Client {clientId}</h2>

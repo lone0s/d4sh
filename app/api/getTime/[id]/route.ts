@@ -37,7 +37,7 @@ export async function GET(request: Request, context: any) {
 
         const timeData = await prisma.data.findMany({
             where: { client_id: {in : clientIDs} },
-            select: { up_time: true, off_time: true}
+            select: { client_id : true,up_time: true, off_time: true}
         });
 
         return NextResponse.json({
