@@ -14,28 +14,31 @@ datasource db {
 }
 
 model users {
-  user_id   Int       @id @default(autoincrement())
-  username  String	  @unique
-  password  String
-  email     String    
-  clients   clients[]
+  user_id  Int       @id @default(autoincrement())
+  username String    @unique
+  password String
+  email    String    @unique
+  clients  clients[]
+  data     data[]
 }
 
 model clients {
-  client_id   Int       @id @default(autoincrement())
-  user_id     Int
-  ip_address  String?
-  userData    data[]
-  user        users      @relation(fields: [user_id], references: [user_id])
+  client_id  Int     @id @default(autoincrement())
+  user_id    Int
+  ip_address String?
+  user       users   @relation(fields: [user_id], references: [user_id])
+  userData   data[]
 }
 
 model data {
-  data_id    Int       @id @default(autoincrement())
-  client_id  Int
-  up_time    DateTime?
-  off_time   DateTime?
-  device_type String
+  data_id      Int       @id @default(autoincrement())
+  client_id    Int
+  user_id      Int
+  up_time      DateTime?
+  off_time     DateTime?
+  device_type  String
   browser_info String
-  geolocation String
-  client     clients    @relation(fields: [client_id], references: [client_id])
+  geolocation  String
+  client       clients   @relation(fields: [client_id], references: [client_id])
+  user         users     @relation(fields: [user_id], references: [user_id])
 }
