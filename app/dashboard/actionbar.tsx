@@ -1,88 +1,107 @@
 "use client"
+import { StandaloneModal, useModal } from "@/app/components/standaloneModal"
+import { ReactNode, useState } from "react"
 import { BsInfoCircleFill, BsTerminalFill, BsXCircleFill } from "react-icons/bs"
-import { StandaloneModal } from "@/app/components/standaloneModal"
-import {useModal} from "@/app/components/standaloneModal";
-import React, { useState } from "react"
 
-const data = [
-  {
-    id: 1,
-    icon: BsInfoCircleFill,
-    modalContent: <div> Hello world! <div> Miaou Chilling </div> </div>,
-    alt: "info",
-  },
-  {
-    id: 2,
-    icon: BsTerminalFill,
-    modalContent: "Hello terminal!",
-    alt: "shell",
-  },
-  {
-    id: 3,
-    icon: BsXCircleFill,
-    modalContent: "Goodbye world :((",
-    alt: "exit",
-  },
-]
+export default function ActionBar({ victimId }: { victimId: number }) {
+	const { ref, onOpen, onClose } = useModal()
+	const [modalContent, setModalContent] = useState<string | ReactNode>("")
 
-interface Users {
-  [key: string]: string
-}
+	async function handleAction(actionRoute: string) {
+		const response = await fetch(actionRoute)
+		if (!response.ok) {
+			alert("Failed to perform action")
+			return
+		}
+		const responseJson = await response.json()
+		return alert(responseJson.message)
+	}
 
-export default function ActionBar() {
-  const { ref, onOpen, onClose } = useModal()
-  const [modalContent, setModalContent] =
-      useState<(typeof data)[number]["modalContent"]>("")
+	async function handleGetActions() {
+		const actionsResponse = await fetch("/api/malware/mock")
+		if (!actionsResponse.ok) {
+			alert("Failed to get actions")
+			return
+		}
+		const actionsObject = await actionsResponse.json()
+		setModalContent((_) => {
+			return (
+				<div>
+					{Object.keys(actionsObject.malwareActions).map((key) => (
+						<div className="flex w-48 flex-grow justify-between">
+							<span>{key}:</span>
+							<button onClick={() => handleAction(actionsObject.malwareActions[key])}>
+								Lessgo
+							</button>
+						</div>
+					))}
+				</div>
+			)
+		})
+	}
 
-  return (
-      <div className="flex justify-between w-2/3">
-        {data.map(({ icon: Icon, alt }) => (
-            <button
-                key={alt}
-                onClick={() => {
-                  onOpen()
-                  setModalContent(
-                      data.find((item) => item.alt === alt)
-                          ?.modalContent || ""
-                  )
-                }}
-                className="flex items-center justify-center p-2"
-            >
-              <Icon />
-            </button>
-        ))}
-        <StandaloneModal ref={ref} onClose={onClose}>
-          <div>{modalContent}</div>
-        </StandaloneModal>
-      </div>
-  )
-}
+	async function handleGetData() {
+		console.log(victimId)
+		const dataResponse = await fetch(`/api/getData/${victimId}`)
+		if (!dataResponse.ok) {
+			alert("Failed to get data")
+			return
+		}
 
-export function VictimsBar() {
-  //Todo: Replace with real data
-  const users: Users = {
-    user1: "John Doe",
-    user2: "Jane Doe",
-    user3: "John Smith",
-    user4: "Jane Smith",
-  }
+		const jsonData = await dataResponse.json()
+		const victimsDataArray = jsonData.data as Array<{
+			[key: string]: string
+		}>
+		console.log(victimsDataArray)
 
-  return (
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden p-6">
-        {Object.entries(users).map(([user, name], index) => (
-            <div
-                key={user}
-                className={`flex items-center justify-between p-4 ${
-                    index % 2 === 0 ? "" : "bg-gray-100"
-                }`}
-            >
-              <h2 className="text-lg font-bold w-1/3">{name}</h2>
-              <div className="flex items-center w-1/3">
-                <div className="h-full border-l border-gray-300 mr-4"></div>
-                <ActionBar />
-              </div>
-            </div>
-        ))}
-      </div>
-  )
+		setModalContent((_) => {
+			return victimsDataArray.map((dataObject) => (
+				<div>
+					{Object.keys(dataObject).map((key) => (
+						<div className="flex w-96 flex-grow justify-between">
+							<span>{key}:</span>
+							<span>{dataObject[key]}</span>
+						</div>
+					))}
+				</div>
+			))
+		})
+	}
+
+	return (
+		<div className="flex w-full justify-between">
+			<button
+				onClick={() => {
+					handleGetData()
+					onOpen()
+				}}
+				className="flex items-center justify-center p-2"
+			>
+				<BsInfoCircleFill />
+			</button>
+			<button
+				onClick={() => {
+					handleGetActions()
+					onOpen()
+				}}
+			>
+				<BsTerminalFill />
+			</button>
+			<button
+				onClick={() => {
+					onOpen()
+					setModalContent("Goodbye world :((")
+				}}
+				className="flex items-center justify-center p-2"
+			>
+				<BsXCircleFill />
+			</button>
+			<StandaloneModal
+				ref={ref}
+				onClose={onClose}
+			>
+				{modalContent}
+			</StandaloneModal>
+		</div>
+	)
 }

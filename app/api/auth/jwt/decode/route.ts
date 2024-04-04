@@ -28,7 +28,7 @@ export async function GET(req: NextApiRequest) {
 
     return NextResponse.json(
         {
-            message: decode(jwtCookie.value).userId,
+            message: decode(jwtCookie.value, {json: true})!.userId,
         },
         {
             status: 200,
