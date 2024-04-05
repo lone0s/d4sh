@@ -55,16 +55,20 @@ export async function POST(request : Request){
                 status: 401,
             });
         }
+
+        const userId = user.user_id
         
 
         const token = sign(
             {
-                username,
+                userId
             },
             SECRET, {
                 expiresIn: MAX_AGE,
             }
         );
+
+        console.log(token)
 
         const seralized = serialize(COOKIE_NAME, token, {
             httpOnly: true,

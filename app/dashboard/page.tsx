@@ -15,20 +15,41 @@ const Dashboard = async () => {
     if (!jwt || !verify(jwt.value, process.env.JWT_SECRET as string)) {
         return <div>Unauthorized</div>
     }
+
+    console.log("here 1")
     const decodedToken = decode(jwt.value, {
         json: true,
     })
 
-    if (!decodedToken || !("userId" in decodedToken)) {
+    console.log(decodedToken)
+
+    console.log("here 2")
+    if (!decodedToken /*|| !("userId" in decodedToken)*/) {
         return <div>Unauthorized</div>
     }
 
-    const userId = decodedToken.userId
-    const user = await prisma.users.findUnique({
-        where: {
-            user_id: userId,
-        },
-    })
+
+    let user: {     user_id: number;     username: string;     password: string;     email: string; } | null = null;
+
+    //HOTFIX : JWT cookie value is sometimes username, sometimes userId, couldn't identify why, so dealt with both
+    if ("userId" in decodedToken){
+        console.log("case userId")
+        const userId = decodedToken.userId
+        user = await prisma.users.findUnique({
+            where: {
+                user_id: userId,
+            },
+        })
+    }
+    if ("username"in decodedToken) {
+        console.log("case username")
+        const username = decodedToken.username
+        user = await prisma.users.findUnique({
+            where: {
+                username: username
+            }
+        })
+    }
 
     return (
         <div style={{ display: "flex", width: "100%", overflow: "hidden" }}>
@@ -37,7 +58,7 @@ const Dashboard = async () => {
             </Sidebar>
             <div style={{ flex: 1, marginLeft: "20px" }}>
                 <h1>Dashboard</h1>
-                <GridLayout />
+                <GridLayout  userId={user!.user_id}/>
             </div>
         </div>
     )

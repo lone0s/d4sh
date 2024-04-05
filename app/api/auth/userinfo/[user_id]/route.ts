@@ -33,4 +33,7 @@ export async function GET(req: NextRequest, {params}: {params: {user_id: string}
             }
         );
     }
+    finally {
+        await prisma.$disconnect();
+    }
 }
