@@ -44,6 +44,9 @@ export async function POST(req: NextApiRequest) {
             }
         );
     }
+    finally {
+        await prisma.$disconnect();
+    }
 }
 
 export async function GET(req: NextApiRequest) {
@@ -82,5 +85,8 @@ export async function GET(req: NextApiRequest) {
                 status: 500,
             }
         );
+    }
+    finally {
+        await prisma.$disconnect();
     }
 }

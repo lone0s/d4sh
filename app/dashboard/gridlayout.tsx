@@ -6,7 +6,11 @@ import DashboardMap from "../components/g_geolocalisation"
 import DashboardTime from "../components/g_time"
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
-export const GridLayout = () => {
+type GridLayoutProps = {
+	userId: number;
+};
+
+export const GridLayout = ({ userId }: GridLayoutProps) => {
 	const layout = [
 		{ i: "a", x: 0, y: 0, w: 6, h: 2, minW: 3, minH: 2, maxH: 2 },
 		{
@@ -50,7 +54,7 @@ export const GridLayout = () => {
 					border: "1px solid black",
 				}}
 			>
-				<DashboardBrowser clientId={1} />
+				<DashboardBrowser clientId={userId} />
 			</div>
 			<div
 				key="b"
@@ -61,7 +65,7 @@ export const GridLayout = () => {
 					border: "1px solid black",
 				}}
 			>
-				<DashboardMap userId={1} />
+				<DashboardMap userId={userId} />
 			</div>
 			<div
 				key="c"
@@ -72,7 +76,7 @@ export const GridLayout = () => {
 					border: "1px solid black",
 				}}
 			>
-				<DashboardDevice clientId={1} />
+				<DashboardDevice clientId={userId} />
 			</div>
 			<div
 				key="d"
@@ -83,7 +87,7 @@ export const GridLayout = () => {
 					border: "1px solid black",
 				}}
 			>
-				<DashboardTime clientId={1} />{" "}
+				<DashboardTime clientId={userId} />{" "}
 				{/* Ajout du composant DashboardTime avec le prop clientId */}
 			</div>
 		</ResponsiveReactGridLayout>
