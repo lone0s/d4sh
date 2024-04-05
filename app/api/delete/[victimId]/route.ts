@@ -2,24 +2,24 @@ import {NextRequest, NextResponse} from "next/server";
 
 import {PrismaClient} from '@prisma/client';
 
+
+
 /**
- *
  * @swagger
  * /api/delete/{victimId}:
- *  delete:
- *    summary: Delete victim
- *    description: Delete victim by ID
- *    parameters:
- *    - in: path
- *     name: victimId
- *     description: Victim ID
- *     required: true
+ *   delete:
+ *     summary: Delete victim
+ *     description: Delete victim by ID
+ *     parameters:
+ *       - in: path
+ *         name: victimId
+ *         description: Victim ID
+ *         required: true
  *     responses:
- *     200:
- *     description: Ok
- *     500:
- *     description: An error occurred while deleting victim.
- *
+ *       200:
+ *         description: Ok
+ *       500: 
+ *         description: An error occurred while deleting victim
  */
 
 export async function DELETE(request: NextRequest, {params}: {params: {victimId: string}}) {

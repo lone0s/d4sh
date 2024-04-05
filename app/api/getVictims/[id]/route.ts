@@ -2,26 +2,27 @@ import {NextRequest, NextResponse} from "next/server";
 import {PrismaClient} from "@prisma/client";
 
 
+
 /**
- * @Swagger
+ * @swagger
  * /api/getVictims/{id}:
  *   get:
- *   summary: Get victims linked to a user
- *   tags:
- *   - Victims
- *   description: Retrieve "victims" linked to a specific user
- *   parameters:
- *   - in: path
- *   name: id
- *   description: User ID
- *   required: true
- *   responses:
- *   200:
- *   description: Ok
- *   404:
- *   description: Victims not found
- *   500:
- *   description: An error occurred while getting user's linked data
+ *     summary: Get victims linked to a user
+ *     tags : 
+ *       - Victims
+ *     description : Retrieve "victims" linked to a specific user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: User ID
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Ok
+ *       404:
+ *         description : Victims not found
+ *       500: 
+ *         description: An error occurred while deleting victim
  */
 
 const prisma = new PrismaClient();
